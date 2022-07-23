@@ -1,9 +1,9 @@
 package com.example.materialapp.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
@@ -14,23 +14,36 @@ import com.example.materialapp.domain.NasaRepositoryImpl
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
+    private lateinit var binding: MainFragmentBinding
+
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(NasaRepositoryImpl())
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        viewModel.requestPictureOfTheDay()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = MainFragmentBinding.bind(view)
+        binding = MainFragmentBinding.bind(view)
 
+        setLaunches()
+        initViews()
+    }
+
+    private fun initViews() {
+        initWikiSearchListener()
+        initChips()
+    }
+
+    private fun initWikiSearchListener() {
+        binding.searchTextInputLayout.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data =
+                    Uri.parse(resources.getString(R.string.wikipedia_endpoint) + binding.searchEditText.text.toString())
+            })
+        }
+    }
+
+
+    private fun setLaunches() {
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
             viewModel.image.collect { url ->
                 url?.let { binding.image.load(it) }
@@ -42,5 +55,23 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 title?.let { binding.title.text = title }
             }
         }
+    }
+
+    private fun initChips() {
+        binding.chipNormalImage.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) {
+                viewModel.requestPictureOfTheDay(
+                    false
+                )
+            }
+        }
+        binding.chipHDImage.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) {
+                viewModel.requestPictureOfTheDay(
+                    true
+                )
+            }
+        }
+        binding.chipNormalImage.isChecked = true
     }
 }

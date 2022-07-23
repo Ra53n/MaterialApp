@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MaterialApp</string>
+    <string name="chip_normal_text">Normal</string>
+    <string name="chip_hd_text">HD</string>
+    <string name="search_helper_text">Введите запрос</string>
+    <string name="wikipedia_endpoint">https://ru.wikipedia.org/wiki/</string>
 </resources>
