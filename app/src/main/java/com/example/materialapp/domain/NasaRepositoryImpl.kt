@@ -4,6 +4,7 @@ import com.example.materialapp.BuildConfig
 import com.example.materialapp.api.NasaApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class NasaRepositoryImpl : NasaRepository {
     private val api = Retrofit.Builder()
@@ -12,6 +13,9 @@ class NasaRepositoryImpl : NasaRepository {
         .build()
         .create(NasaApi::class.java)
 
-    override suspend fun pictureOfTheDay() =
-        api.getPictureOfTheDay(BuildConfig.NASA_API_KEY)
+    override suspend fun pictureOfTheDay(date: String) =
+        api.getPictureOfTheDay(
+            BuildConfig.NASA_API_KEY,
+            date
+        )
 }
