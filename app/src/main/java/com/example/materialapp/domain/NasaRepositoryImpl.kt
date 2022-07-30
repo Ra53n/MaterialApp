@@ -12,6 +12,9 @@ class NasaRepositoryImpl : NasaRepository {
         .build()
         .create(NasaApi::class.java)
 
-    override suspend fun pictureOfTheDay() =
-        api.getPictureOfTheDay(BuildConfig.NASA_API_KEY)
+    override suspend fun pictureOfTheDay(date: String) =
+        api.getPictureOfTheDay(
+            BuildConfig.NASA_API_KEY,
+            date
+        )
 }
