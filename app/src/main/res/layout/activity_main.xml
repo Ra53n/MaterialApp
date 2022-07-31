@@ -13,7 +13,7 @@
         android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/theme_menu"
-        app:title="Nasa App"
+        app:title="@string/app_toolbar_title"
         app:titleTextColor="?attr/colorSecondary" />
 
     <androidx.fragment.app.FragmentContainerView

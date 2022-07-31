@@ -4,11 +4,11 @@
     <item
         android:id="@+id/space"
         android:icon="@mipmap/space"
-        android:title="Space"
+        android:title="@string/bottom_nav_space"
         app:showAsAction="always" />
     <item
         android:id="@+id/mars"
         android:icon="@mipmap/mars"
-        android:title="Mars"
+        android:title="@string/bottom_nav_mars"
         app:showAsAction="always" />
 </menu>

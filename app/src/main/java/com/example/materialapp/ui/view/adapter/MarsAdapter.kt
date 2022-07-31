@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.materialapp.R
-import com.example.materialapp.domain.MarsRoverPhotoEntity
+import com.example.materialapp.domain.data.MarsRoverPhotoEntity
 
 class MarsAdapter : RecyclerView.Adapter<MarsAdapter.MarsViewHolder>() {
 

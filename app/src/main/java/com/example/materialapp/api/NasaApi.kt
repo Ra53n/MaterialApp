@@ -14,6 +14,7 @@ interface NasaApi {
     @GET("mars-photos/api/v1/rovers/curiosity/photos")
     suspend fun getMarsPhotos(
         @Query("api_key") key: String,
-        @Query("sol") sol: Int
+        @Query("sol") sol: Int,
+        @Query("camera") cameraName: String
     ): MarsRoverPhotoResponse
 }

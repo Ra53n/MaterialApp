@@ -3,7 +3,6 @@ package com.example.materialapp.api
 import com.google.gson.annotations.SerializedName
 
 data class MarsRoverPhotoResponse(
-
     val photos: List<Photo>
 )
 
@@ -21,27 +20,8 @@ data class Photo(
 
 data class Camera(
     val id: Long,
-    val name: CameraName?,
+    val name: String?,
 
     @SerializedName("rover_id")
     val roverID: Long
 )
-
-enum class CameraName(val value: String) {
-    Chemcam("CHEMCAM"),
-    Fhaz("FHAZ"),
-    Mast("MAST"),
-    Navcam("NAVCAM"),
-    Rhaz("RHAZ");
-
-    companion object {
-        public fun fromValue(value: String): CameraName = when (value) {
-            "CHEMCAM" -> Chemcam
-            "FHAZ" -> Fhaz
-            "MAST" -> Mast
-            "NAVCAM" -> Navcam
-            "RHAZ" -> Rhaz
-            else -> throw IllegalArgumentException()
-        }
-    }
-}

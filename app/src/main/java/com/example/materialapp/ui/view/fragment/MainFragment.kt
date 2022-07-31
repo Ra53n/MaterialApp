@@ -14,12 +14,10 @@ import androidx.lifecycle.coroutineScope
 import coil.load
 import com.example.materialapp.R
 import com.example.materialapp.databinding.MainFragmentBinding
-import com.example.materialapp.domain.NasaRepositoryImpl
+import com.example.materialapp.domain.repos.NasaRepositoryImpl
 import com.example.materialapp.ui.viewmodel.MainViewModel
 import com.example.materialapp.ui.viewmodel.MainViewModelFactory
 
-
-const val KEY_THEME = "KEY_THEME"
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 

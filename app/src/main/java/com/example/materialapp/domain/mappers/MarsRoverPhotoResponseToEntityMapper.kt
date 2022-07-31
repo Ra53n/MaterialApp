@@ -1,7 +1,7 @@
 package com.example.materialapp.domain.mappers
 
 import com.example.materialapp.api.MarsRoverPhotoResponse
-import com.example.materialapp.domain.MarsRoverPhotoEntity
+import com.example.materialapp.domain.data.MarsRoverPhotoEntity
 
 class MarsRoverPhotoResponseToEntityMapper {
 
@@ -9,7 +9,6 @@ class MarsRoverPhotoResponseToEntityMapper {
         return with(response.photos) {
             map {
                 MarsRoverPhotoEntity(
-                    //camera = CameraName.valueOf(it.camera.name.value),
                     imgSrc = it.imgSrc,
                     earthDate = it.earthDate
                 )

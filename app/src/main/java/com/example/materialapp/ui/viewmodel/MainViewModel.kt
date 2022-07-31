@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.materialapp.api.PictureOfTheDayResponse
-import com.example.materialapp.domain.NasaRepository
-import com.example.materialapp.ui.DescriptionBottomSheetFragment
+import com.example.materialapp.domain.data.PictureOfTheDayEntity
+import com.example.materialapp.domain.repos.NasaRepository
+import com.example.materialapp.ui.view.fragment.DescriptionBottomSheetFragment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
     private val _title: MutableStateFlow<String?> = MutableStateFlow(null)
     val title: Flow<String?> = _title
 
-    private var currentResponse: PictureOfTheDayResponse? = null
+    private var currentPictureEntity: PictureOfTheDayEntity? = null
 
     fun requestPictureOfTheDay(isYesterday: Boolean) {
         viewModelScope.launch {
@@ -33,8 +33,8 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
                 if (isYesterday) {
                     date.add(Calendar.DAY_OF_YEAR, -1)
                 }
-                currentResponse = repository.pictureOfTheDay(dateFormat.format(date))
-                currentResponse?.let {
+                currentPictureEntity = repository.pictureOfTheDay(dateFormat.format(date))
+                currentPictureEntity?.let {
                     _image.emit(it.url)
                     _title.emit(it.title)
                 }
@@ -46,7 +46,7 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
     }
 
     fun onImageClick(manager: FragmentManager) {
-        currentResponse?.let {
+        currentPictureEntity?.let {
             DescriptionBottomSheetFragment(it).show(manager, "")
         }
     }
