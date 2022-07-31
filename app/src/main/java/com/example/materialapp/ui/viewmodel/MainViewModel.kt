@@ -1,4 +1,4 @@
-package com.example.materialapp.ui
+package com.example.materialapp.ui.viewmodel
 
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.materialapp.api.PictureOfTheDayResponse
 import com.example.materialapp.domain.NasaRepository
+import com.example.materialapp.ui.DescriptionBottomSheetFragment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
