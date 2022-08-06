@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text">
+        <item name="fontFamily">@font/clear_sans_regular</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Text.Header">
+        <item name="android:textSize">24sp</item>
+        <item name="fontFamily">@font/clear_sans_bold</item>
+        <item name="android:textColor">?attr/headerColor</item>
+    </style>
+
+    <style name="CardView.Description" parent="Widget.Material3.CardView.Outlined">
+        <item name="strokeColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.Design.FloatingActionButton.Info">
+        <item name="maxImageSize">@dimen/fab_max_image_size</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="Base.Widget.MaterialComponents.TextView.Header">
+        <item name="android:textAppearance">@style/Text.Header</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.Search">
+        <item name="endIconDrawable">@drawable/ic_baseline_search_24</item>
+        <item name="endIconMode">custom</item>
+        <item name="helperText">@string/search_helper_text</item>
+    </style>
+
+</resources>
