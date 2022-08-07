@@ -4,4 +4,10 @@
     <string name="chip_yesterday_apod_text">Yesterday</string>
     <string name="search_helper_text">Enter a request</string>
     <string name="wikipedia_endpoint">https://ru.wikipedia.org/wiki/</string>
+    <string name="app_toolbar_title">Nasa App</string>
+    <string name="bottom_nav_space">Space</string>
+    <string name="bottom_nav_mars">Mars</string>
+    <string name="theme_title_earth">Earth</string>
+    <string name="theme_title_moon">Moon</string>
+    <string name="theme_title_mars">Mars</string>
 </resources>

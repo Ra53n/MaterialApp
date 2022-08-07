@@ -5,9 +5,6 @@ import java.util.*
 
 data class PictureOfTheDayResponse(
 
-    @SerializedName("copyright")
-    val copyright: String,
-
     @SerializedName("date")
     val date: Date,
 
@@ -19,9 +16,6 @@ data class PictureOfTheDayResponse(
 
     @SerializedName("media_type")
     val mediaType: String,
-
-    @SerializedName("service_version")
-    val serviceVersion: String,
 
     @SerializedName("title")
     val title: String,

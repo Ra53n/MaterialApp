@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/earth"
-        android:title="Earth" />
+        android:title="@string/theme_title_earth" />
     <item
         android:id="@+id/moon"
-        android:title="Moon" />
+        android:title="@string/theme_title_moon" />
     <item
         android:id="@+id/mars"
-        android:title="Mars" />
+        android:title="@string/theme_title_mars" />
 </menu>

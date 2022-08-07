@@ -1,4 +1,4 @@
-package com.example.materialapp.ui
+package com.example.materialapp.ui.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import coil.load
 import com.example.materialapp.R
-import com.example.materialapp.api.PictureOfTheDayResponse
 import com.example.materialapp.databinding.DescriptionBottomSheetFragmentBinding
+import com.example.materialapp.domain.data.PictureOfTheDayEntity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class DescriptionBottomSheetFragment(private val picture: PictureOfTheDayResponse) :
+class DescriptionBottomSheetFragment(private val picture: PictureOfTheDayEntity) :
     BottomSheetDialogFragment() {
 
     lateinit var binding: DescriptionBottomSheetFragmentBinding
