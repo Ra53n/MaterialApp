@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,9 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import androidx.transition.Fade
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import coil.load
 import com.example.materialapp.R
 import com.example.materialapp.databinding.MainFragmentBinding
@@ -65,7 +69,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun setLaunches() {
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
             viewModel.image.collect { url ->
+                binding.image.visibility = View.INVISIBLE
                 url?.let { binding.image.load(it) }
+                TransitionManager.beginDelayedTransition(binding.root, Fade())
+                binding.image.visibility = View.VISIBLE
             }
         }
 
