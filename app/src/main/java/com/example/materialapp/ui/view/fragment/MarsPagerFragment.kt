@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.materialapp.R
 import com.example.materialapp.domain.data.CameraName
 import com.example.materialapp.ui.view.adapter.ViewPagerAdapter
+import com.example.materialapp.ui.view.utils.ZoomOutPageTransformer
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -19,6 +20,7 @@ class MarsPagerFragment : Fragment(R.layout.mars_pager_fragment) {
         val pager: ViewPager2 = view.findViewById(R.id.view_pager)
 
         pager.adapter = ViewPagerAdapter(this)
+        pager.setPageTransformer(ZoomOutPageTransformer())
 
         val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
 
