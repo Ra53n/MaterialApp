@@ -33,4 +33,11 @@
         <item name="helperText">@string/search_helper_text</item>
     </style>
 
+    <style name="Text.Date">
+        <item name="android:padding">@dimen/padding_12</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
 </resources>

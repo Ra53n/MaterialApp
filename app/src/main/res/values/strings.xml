@@ -10,4 +10,5 @@
     <string name="theme_title_earth">Earth</string>
     <string name="theme_title_moon">Moon</string>
     <string name="theme_title_mars">Mars</string>
+    <string name="bottom_nav_notes">Notes</string>
 </resources>

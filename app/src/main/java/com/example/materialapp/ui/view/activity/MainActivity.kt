@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.materialapp.R
 import com.example.materialapp.ui.view.fragment.MainFragment
 import com.example.materialapp.ui.view.fragment.MarsPagerFragment
+import com.example.materialapp.ui.view.fragment.NotesFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             when (it.itemId) {
                 R.id.space -> replaceScreen(MainFragment())
                 R.id.mars -> replaceScreen(MarsPagerFragment())
+                R.id.notes -> replaceScreen(NotesFragment())
             }
             true
         }
