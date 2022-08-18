@@ -4,10 +4,11 @@ import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.materialapp.domain.data.notesDB.NoteEntity
 import com.example.materialapp.domain.repos.NoteRepository
 import com.example.materialapp.ui.view.fragment.AddNoteBottomSheetFragment
-import kotlinx.coroutines.CoroutineScope
+import com.example.materialapp.ui.view.fragment.NoteEditBottomSheetFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,7 @@ class NotesViewModel(private val noteRepository: NoteRepository) : ViewModel() {
     val notes: Flow<List<NoteEntity>?> = _notes
 
     fun requestNotes() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val list = noteRepository.getAllNotes()
                 _notes.emit(list)
@@ -33,9 +34,26 @@ class NotesViewModel(private val noteRepository: NoteRepository) : ViewModel() {
     }
 
     fun removeItem(item: NoteEntity) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             noteRepository.deleteNote(item)
         }
+    }
+
+    fun replaceItems(firstItem: NoteEntity, secondItem: NoteEntity) {
+        val firstItemId = firstItem.id
+        val secondItemId = secondItem.id
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                noteRepository.updateNote(secondItem.copy(id = firstItemId))
+                noteRepository.updateNote(firstItem.copy(id = secondItemId))
+            } catch (exception: Exception) {
+                Log.e("@@@", exception.message.toString())
+            }
+        }
+    }
+
+    fun onItemClicked(note: NoteEntity, manager: FragmentManager) {
+        NoteEditBottomSheetFragment(noteRepository, note).show(manager, "")
     }
 }
 

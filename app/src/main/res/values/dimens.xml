@@ -13,4 +13,6 @@
     <dimen name="text_size_12">12dp</dimen>
     <dimen name="card_view_corner_radius">24dp</dimen>
     <dimen name="card_view_elevation">10dp</dimen>
+    <dimen name="priority_edit_text_width">86dp</dimen>
+    <dimen name="card_view_height">500dp</dimen>
 </resources>

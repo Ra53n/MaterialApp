@@ -11,4 +11,10 @@
     <string name="theme_title_moon">Moon</string>
     <string name="theme_title_mars">Mars</string>
     <string name="bottom_nav_notes">Notes</string>
+    <string name="priority">Priority: </string>
+    <string name="title_hint">Title</string>
+    <string name="note_hint">Note</string>
+    <string name="priority_hint">Priority</string>
+    <string name="add">ADD</string>
+    <string name="save">SAVE</string>
 </resources>

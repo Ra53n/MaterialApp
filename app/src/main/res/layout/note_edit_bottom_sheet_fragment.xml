@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/priority"
+                        android:id="@+id/priorityTV"
                         android:layout_width="@dimen/priority_edit_text_width"
                         android:layout_height="wrap_content"
                         android:background="?attr/colorSecondary"
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_margin="@dimen/margin_10"
-                        android:text="@string/add" />
+                        android:text="@string/save" />
 
                     <TextView
                         android:id="@+id/date"

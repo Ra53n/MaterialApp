@@ -7,22 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.example.materialapp.R
-import com.example.materialapp.databinding.AddNoteBottomSheetFragmentBinding
+import com.example.materialapp.databinding.NoteEditBottomSheetFragmentBinding
 import com.example.materialapp.domain.data.notesDB.NoteEntity
 import com.example.materialapp.domain.repos.NoteRepository
-import com.example.materialapp.ui.viewmodel.AddNoteBottomSheetViewModel
-import com.example.materialapp.ui.viewmodel.AddNoteViewModelFactory
+import com.example.materialapp.ui.viewmodel.NoteEditBottomSheetViewModel
+import com.example.materialapp.ui.viewmodel.NoteEditViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 
-const val UPDATE_NOTES_REQUEST_KEY = "UPDATE_NOTES_REQUEST_KEY"
-
-class AddNoteBottomSheetFragment(private val repository: NoteRepository) :
+class NoteEditBottomSheetFragment(val repository: NoteRepository, val note: NoteEntity) :
     BottomSheetDialogFragment() {
 
-    private lateinit var binding: AddNoteBottomSheetFragmentBinding
-    private val viewModel: AddNoteBottomSheetViewModel by viewModels {
-        AddNoteViewModelFactory(repository)
+    private lateinit var binding: NoteEditBottomSheetFragmentBinding
+    private val viewModel: NoteEditBottomSheetViewModel by viewModels {
+        NoteEditViewModelFactory(repository)
     }
 
 
@@ -31,39 +29,41 @@ class AddNoteBottomSheetFragment(private val repository: NoteRepository) :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = AddNoteBottomSheetFragmentBinding.bind(
-            inflater.inflate(
-                R.layout.add_note_bottom_sheet_fragment,
-                container
-            )
+        binding = NoteEditBottomSheetFragmentBinding.bind(
+            inflater.inflate(R.layout.note_edit_bottom_sheet_fragment, container)
         )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.title.setText(note.title)
+        binding.text.setText(note.note)
+        binding.date.text = note.date
+        binding.priorityTV.setText(note.priority.toString())
         bindViews()
     }
 
     private fun bindViews() {
         binding.addButton.setOnClickListener {
-            viewModel.insertNote(getNewNote())
+            viewModel.updateNote(getEditedNote())
             dismiss()
             setFragmentResult(UPDATE_NOTES_REQUEST_KEY, Bundle())
         }
     }
 
-    private fun getNewNote() =
+    private fun getEditedNote() =
         NoteEntity(
-            UUID.randomUUID().toString(),
+            note.id,
             binding.title.text.toString(),
             binding.text.text.toString(),
             Date(System.currentTimeMillis()).toString(),
-            if (binding.priority.text.isNullOrEmpty()) MIN_PRIORITY
-            else binding.priority.text.toString().toInt()
+            if (binding.priorityTV.text.isNullOrEmpty()) MIN_PRIORITY
+            else binding.priorityTV.text.toString().toInt()
         )
 
     companion object {
         const val MIN_PRIORITY = 1
     }
+
 }

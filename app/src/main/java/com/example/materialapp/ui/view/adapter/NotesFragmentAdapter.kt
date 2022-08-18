@@ -9,17 +9,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.materialapp.R
 import com.example.materialapp.databinding.NoteItemBinding
 import com.example.materialapp.domain.data.notesDB.NoteEntity
+import java.util.*
 
-class NotesFragmentAdapter(val removeItem: (item: NoteEntity) -> Unit) :
-    ListAdapter<NoteEntity, NotesFragmentAdapter.NotesViewHolder>(object :
-        DiffUtil.ItemCallback<NoteEntity>() {
-        override fun areItemsTheSame(oldItem: NoteEntity, newItem: NoteEntity) =
-            oldItem.id == newItem.id
+class NotesFragmentAdapter(
+    private val removeItem: (item: NoteEntity) -> Unit,
+    private val replaceItems: (firstItem: NoteEntity, secondItem: NoteEntity) -> Unit,
+    private val onItemClicked: (item: NoteEntity) -> Unit
+) :
+    ListAdapter<NoteEntity, NotesFragmentAdapter.NotesViewHolder>(
+        object :
+            DiffUtil.ItemCallback<NoteEntity>() {
+            override fun areItemsTheSame(oldItem: NoteEntity, newItem: NoteEntity) =
+                oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: NoteEntity, newItem: NoteEntity) =
-            oldItem == newItem
+            override fun areContentsTheSame(oldItem: NoteEntity, newItem: NoteEntity) =
+                oldItem == newItem
 
-    }) {
+        }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NotesViewHolder(
         LayoutInflater.from(parent.context)
@@ -40,10 +46,38 @@ class NotesFragmentAdapter(val removeItem: (item: NoteEntity) -> Unit) :
             binding.title.text = entity.title
             binding.text.text = entity.note
             binding.date.text = entity.date
+            binding.priority.text = PRIORITY_PREF + entity.priority
+            binding.root.setOnClickListener { onItemClicked(entity) }
         }
     }
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         holder.bind(currentList[position])
+    }
+
+    fun sortByPriority(isIncreasing: Boolean) {
+        val sortedList = ArrayList(currentList)
+        if (isIncreasing) {
+            sortedList.sortBy { it.priority }
+        } else {
+            sortedList.sortByDescending { it.priority }
+        }
+        submitList(sortedList)
+    }
+
+    fun moveItems(positionFrom: Int, positionTo: Int) {
+        val replaceList = ArrayList(currentList)
+        Collections.swap(replaceList, positionFrom, positionTo)
+        submitList(replaceList)
+    }
+
+    fun replaceItems(positionFrom: Int, positionTo: Int) {
+        val firstItem = currentList[positionFrom]
+        val secondItem = currentList[positionTo]
+        replaceItems(firstItem, secondItem)
+    }
+
+    companion object {
+        private const val PRIORITY_PREF = "Proirity: "
     }
 }
