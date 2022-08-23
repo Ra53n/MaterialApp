@@ -11,6 +11,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import androidx.transition.*
 import coil.load
 import com.example.materialapp.R
 import com.example.materialapp.databinding.MainFragmentBinding
@@ -22,6 +23,7 @@ import com.example.materialapp.ui.viewmodel.MainViewModelFactory
 class MainFragment : Fragment(R.layout.main_fragment) {
 
     private lateinit var binding: MainFragmentBinding
+    private var isExpanded = false
 
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(NasaRepositoryImpl())
@@ -50,6 +52,24 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         initWikiSearchListener()
         initChips()
         binding.fab.setOnClickListener { viewModel.onImageClick(parentFragmentManager) }
+        binding.image.setOnClickListener { zoomImageTransition() }
+    }
+
+    private fun zoomImageTransition() {
+        isExpanded = isExpanded.not()
+        TransitionManager.beginDelayedTransition(
+            binding.root, TransitionSet()
+                .addTransition(ChangeBounds())
+                .addTransition(ChangeImageTransform())
+        )
+        val params: ViewGroup.LayoutParams = binding.image.layoutParams
+        params.width =
+            if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        params.height =
+            if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.image.layoutParams = params
     }
 
     private fun initWikiSearchListener() {
@@ -65,7 +85,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun setLaunches() {
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
             viewModel.image.collect { url ->
+                binding.image.visibility = View.INVISIBLE
                 url?.let { binding.image.load(it) }
+                TransitionManager.beginDelayedTransition(binding.root, Fade())
+                binding.image.visibility = View.VISIBLE
             }
         }
 
