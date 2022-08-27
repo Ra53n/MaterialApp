@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_10">10sp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_12">12sp</dimen>
+    <dimen name="padding_small">8dp</dimen>
     <dimen name="fab_max_image_size">54dp</dimen>
     <dimen name="toolbar_image_height">124dp</dimen>
     <dimen name="icon_width">64dp</dimen>
     <dimen name="icon_height">64dp</dimen>
+    <dimen name="text_size_12">12dp</dimen>
+    <dimen name="card_view_corner_radius">24dp</dimen>
+    <dimen name="card_view_elevation">10dp</dimen>
+    <dimen name="priority_edit_text_width">86dp</dimen>
+    <dimen name="card_view_height">500dp</dimen>
 </resources>

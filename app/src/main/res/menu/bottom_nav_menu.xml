@@ -11,4 +11,10 @@
         android:icon="@mipmap/mars"
         android:title="@string/bottom_nav_mars"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/notes"
+        android:icon="@drawable/ic_baseline_notes_24"
+        android:title="@string/bottom_nav_notes"
+        app:showAsAction="always" />
 </menu>
