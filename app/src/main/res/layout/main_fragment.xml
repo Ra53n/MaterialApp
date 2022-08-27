@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -92,7 +93,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.example.materialapp.ui.view.CustomFabView
         android:id="@+id/fab"
         style="@style/Widget.Design.FloatingActionButton.Info"
         android:layout_width="wrap_content"
