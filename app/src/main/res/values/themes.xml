@@ -61,4 +61,19 @@
         <item name="headerColor">@color/earth_blue</item>
         <item name="fontFamily">@font/cambay</item>
     </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+        <item name="windowSplashScreenBackground">@color/purple_200</item>
+
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/vector_animation</item>
+        <!-- Required for animated icons -->
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.MaterialApp</item>
+    </style>
 </resources>

@@ -3,6 +3,7 @@ package com.example.materialapp.ui.view.activity
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import com.example.materialapp.R
 import com.example.materialapp.ui.view.fragment.MainFragment
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private var savedTheme: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         savedInstanceState?.getInt(KEY_THEME, R.style.Theme_EARTH)
             ?.let {
                 savedTheme = it
