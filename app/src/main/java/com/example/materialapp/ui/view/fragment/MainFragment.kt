@@ -2,8 +2,12 @@ package com.example.materialapp.ui.view.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface.BOLD
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,8 +97,17 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
 
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            viewModel.title.collect { title ->
-                title?.let { binding.title.text = title }
+            viewModel.title.collect { titleText ->
+                titleText?.let {
+                    val spannable = SpannableString(titleText)
+                    spannable.setSpan(
+                        StyleSpan(BOLD),
+                        0,
+                        spannable.length,
+                        Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                    )
+                    binding.title.text = spannable
+                }
             }
         }
     }
