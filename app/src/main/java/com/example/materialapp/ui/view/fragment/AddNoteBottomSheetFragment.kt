@@ -47,23 +47,13 @@ class AddNoteBottomSheetFragment(private val repository: NoteRepository) :
 
     private fun bindViews() {
         binding.addButton.setOnClickListener {
-            viewModel.insertNote(getNewNote())
+            viewModel.insertNote(
+                binding.title.text.toString(),
+                binding.text.text.toString(),
+                binding.priority.text.toString()
+            )
             dismiss()
             setFragmentResult(UPDATE_NOTES_REQUEST_KEY, Bundle())
         }
-    }
-
-    private fun getNewNote() =
-        NoteEntity(
-            UUID.randomUUID().toString(),
-            binding.title.text.toString(),
-            binding.text.text.toString(),
-            Date(System.currentTimeMillis()).toString(),
-            if (binding.priority.text.isNullOrEmpty()) MIN_PRIORITY
-            else binding.priority.text.toString().toInt()
-        )
-
-    companion object {
-        const val MIN_PRIORITY = 1
     }
 }

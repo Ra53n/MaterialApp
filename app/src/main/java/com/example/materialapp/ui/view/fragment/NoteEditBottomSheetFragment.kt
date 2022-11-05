@@ -13,9 +13,8 @@ import com.example.materialapp.domain.repos.NoteRepository
 import com.example.materialapp.ui.viewmodel.NoteEditBottomSheetViewModel
 import com.example.materialapp.ui.viewmodel.NoteEditViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.*
 
-class NoteEditBottomSheetFragment(val repository: NoteRepository, val note: NoteEntity) :
+class NoteEditBottomSheetFragment(private val repository: NoteRepository, val note: NoteEntity) :
     BottomSheetDialogFragment() {
 
     private lateinit var binding: NoteEditBottomSheetFragmentBinding
@@ -46,24 +45,14 @@ class NoteEditBottomSheetFragment(val repository: NoteRepository, val note: Note
 
     private fun bindViews() {
         binding.addButton.setOnClickListener {
-            viewModel.updateNote(getEditedNote())
+            viewModel.updateNote(
+                note.id,
+                binding.title.text.toString(),
+                binding.text.text.toString(),
+                binding.priorityTV.text.toString()
+            )
             dismiss()
             setFragmentResult(UPDATE_NOTES_REQUEST_KEY, Bundle())
         }
     }
-
-    private fun getEditedNote() =
-        NoteEntity(
-            note.id,
-            binding.title.text.toString(),
-            binding.text.text.toString(),
-            Date(System.currentTimeMillis()).toString(),
-            if (binding.priorityTV.text.isNullOrEmpty()) MIN_PRIORITY
-            else binding.priorityTV.text.toString().toInt()
-        )
-
-    companion object {
-        const val MIN_PRIORITY = 1
-    }
-
 }
