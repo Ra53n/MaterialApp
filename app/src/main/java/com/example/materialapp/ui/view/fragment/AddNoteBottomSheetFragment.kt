@@ -8,21 +8,19 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.example.materialapp.R
 import com.example.materialapp.databinding.AddNoteBottomSheetFragmentBinding
-import com.example.materialapp.domain.data.notesDB.NoteEntity
-import com.example.materialapp.domain.repos.NoteRepository
+import com.example.materialapp.domain.interactors.NotesInteractor
 import com.example.materialapp.ui.viewmodel.AddNoteBottomSheetViewModel
 import com.example.materialapp.ui.viewmodel.AddNoteViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.*
 
 const val UPDATE_NOTES_REQUEST_KEY = "UPDATE_NOTES_REQUEST_KEY"
 
-class AddNoteBottomSheetFragment(private val repository: NoteRepository) :
+class AddNoteBottomSheetFragment(private val interactor: NotesInteractor) :
     BottomSheetDialogFragment() {
 
     private lateinit var binding: AddNoteBottomSheetFragmentBinding
     private val viewModel: AddNoteBottomSheetViewModel by viewModels {
-        AddNoteViewModelFactory(repository)
+        AddNoteViewModelFactory(interactor)
     }
 
 

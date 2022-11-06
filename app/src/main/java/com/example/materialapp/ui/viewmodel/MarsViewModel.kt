@@ -20,12 +20,11 @@ class MarsViewModel(private val repository: NasaRepository) : ViewModel() {
     fun requestMarsPhotos(cameraName: CameraName) {
         viewModelScope.launch {
             try {
-                val list = repository.marsRoverPhotos(cameraName)
+                val list = repository.marsRoverPhotos(cameraName.value)
                 _image.emit(list)
             } catch (exception: Exception) {
                 Log.e("@@@", exception.message.toString())
             }
-
         }
     }
 }

@@ -17,6 +17,7 @@ import coil.load
 import com.example.materialapp.R
 import com.example.materialapp.databinding.MainFragmentBinding
 import com.example.materialapp.domain.repos.NasaRepositoryImpl
+import com.example.materialapp.ui.view.utils.DateFormatter
 import com.example.materialapp.ui.view.utils.SearchRequestValidator
 import com.example.materialapp.ui.view.utils.getBoldText
 import com.example.materialapp.ui.viewmodel.MainViewModel
@@ -29,7 +30,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private var isExpanded = false
 
     private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(NasaRepositoryImpl())
+        MainViewModelFactory(NasaRepositoryImpl(), DateFormatter())
     }
 
     override fun onCreateView(

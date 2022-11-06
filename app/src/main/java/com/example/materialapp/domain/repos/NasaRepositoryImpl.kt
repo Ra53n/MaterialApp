@@ -2,7 +2,6 @@ package com.example.materialapp.domain.repos
 
 import com.example.materialapp.BuildConfig
 import com.example.materialapp.api.NasaApi
-import com.example.materialapp.domain.data.CameraName
 import com.example.materialapp.domain.mappers.MarsRoverPhotoResponseToEntityMapper
 import com.example.materialapp.domain.mappers.PictureOfTheDateResponseToEntityMapper
 import retrofit2.Retrofit
@@ -28,9 +27,9 @@ class NasaRepositoryImpl : NasaRepository {
             )
         )
 
-    override suspend fun marsRoverPhotos(cameraName: CameraName) =
+    override suspend fun marsRoverPhotos(cameraName: String) =
         marsRoverPhotoMapper.map(
-            api.getMarsPhotos(BuildConfig.NASA_API_KEY, 2000, cameraName.value)
+            api.getMarsPhotos(BuildConfig.NASA_API_KEY, 2000, cameraName)
         )
 
 }

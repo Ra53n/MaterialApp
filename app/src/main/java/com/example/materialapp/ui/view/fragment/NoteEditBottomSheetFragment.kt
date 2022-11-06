@@ -9,17 +9,18 @@ import androidx.fragment.app.viewModels
 import com.example.materialapp.R
 import com.example.materialapp.databinding.NoteEditBottomSheetFragmentBinding
 import com.example.materialapp.domain.data.notesDB.NoteEntity
-import com.example.materialapp.domain.repos.NoteRepository
+import com.example.materialapp.domain.interactors.NotesInteractor
+import com.example.materialapp.domain.mappers.NoteMapper
 import com.example.materialapp.ui.viewmodel.NoteEditBottomSheetViewModel
 import com.example.materialapp.ui.viewmodel.NoteEditViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class NoteEditBottomSheetFragment(private val repository: NoteRepository, val note: NoteEntity) :
+class NoteEditBottomSheetFragment(private val interactor: NotesInteractor, val note: NoteEntity) :
     BottomSheetDialogFragment() {
 
     private lateinit var binding: NoteEditBottomSheetFragmentBinding
     private val viewModel: NoteEditBottomSheetViewModel by viewModels {
-        NoteEditViewModelFactory(repository)
+        NoteEditViewModelFactory(interactor, NoteMapper())
     }
 
 
@@ -45,7 +46,7 @@ class NoteEditBottomSheetFragment(private val repository: NoteRepository, val no
 
     private fun bindViews() {
         binding.addButton.setOnClickListener {
-            viewModel.updateNote(
+            viewModel.onUpdateNote(
                 note.id,
                 binding.title.text.toString(),
                 binding.text.text.toString(),

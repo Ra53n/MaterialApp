@@ -3,20 +3,26 @@ package com.example.materialapp.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.materialapp.domain.data.notesDB.NoteEntity
+import com.example.materialapp.domain.interactors.NotesInteractor
 import com.example.materialapp.domain.mappers.NoteMapper
-import com.example.materialapp.domain.repos.NoteRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NoteEditBottomSheetViewModel(private val repository: NoteRepository) : ViewModel() {
+class NoteEditBottomSheetViewModel(
+    private val interactor: NotesInteractor,
+    private val mapper: NoteMapper
+) : ViewModel() {
 
-    private val mapper = NoteMapper()
+    fun onUpdateNote(id: String, title: String, text: String, priority: String) {
+        updateNote(mapper.map(id, title, text, priority))
+    }
 
-    fun updateNote(id: String, title: String, text: String, priority: String) {
+    private fun updateNote(noteEntity: NoteEntity) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                repository.updateNote(mapper.map(id, title, text, priority))
+                interactor.updateNote(noteEntity)
             } catch (exception: Exception) {
                 Log.e("@@@", exception.message.toString())
             }
@@ -24,7 +30,10 @@ class NoteEditBottomSheetViewModel(private val repository: NoteRepository) : Vie
     }
 }
 
-class NoteEditViewModelFactory(private val repository: NoteRepository) : ViewModelProvider.Factory {
+class NoteEditViewModelFactory(
+    private val interactor: NotesInteractor,
+    private val mapper: NoteMapper
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        NoteEditBottomSheetViewModel(repository) as T
+        NoteEditBottomSheetViewModel(interactor, mapper) as T
 }
