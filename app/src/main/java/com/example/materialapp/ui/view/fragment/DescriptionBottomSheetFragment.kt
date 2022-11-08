@@ -2,15 +2,8 @@ package com.example.materialapp.ui.view.fragment
 
 import android.graphics.RenderEffect
 import android.graphics.Shader
-import android.graphics.Typeface.BOLD
 import android.os.Build
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.text.style.UnderlineSpan
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +12,8 @@ import coil.load
 import com.example.materialapp.R
 import com.example.materialapp.databinding.DescriptionBottomSheetFragmentBinding
 import com.example.materialapp.domain.data.PictureOfTheDayEntity
+import com.example.materialapp.ui.view.utils.getColoredFirstSentence
+import com.example.materialapp.ui.view.utils.getUnderlinedBoldText
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DescriptionBottomSheetFragment(private val picture: PictureOfTheDayEntity) :
@@ -72,39 +67,7 @@ class DescriptionBottomSheetFragment(private val picture: PictureOfTheDayEntity)
     private fun bindViews() {
         binding.descriptionTitle.text = getUnderlinedBoldText(picture.title)
         binding.descriptionImage.load(picture.url)
-        binding.descriptionText.text = getColoredFirstSentence(picture.explanation)
-    }
-
-    private fun getUnderlinedBoldText(text: String) =
-        SpannableString(text).apply {
-            setSpan(
-                UnderlineSpan(),
-                0,
-                text.length,
-                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-            )
-            setSpan(
-                StyleSpan(BOLD),
-                0,
-                text.length,
-                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-            )
-        }
-
-    private fun getColoredFirstSentence(text: String): Spannable {
-        val explanationSpan = SpannableString(text)
-        val firstSentenceIndex = text
-            .split(".")
-            .first()
-            .length
-        val typedValue = TypedValue()
-        requireContext().theme?.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
-        explanationSpan.setSpan(
-            ForegroundColorSpan(typedValue.data),
-            0,
-            firstSentenceIndex,
-            Spannable.SPAN_INCLUSIVE_INCLUSIVE
-        )
-        return explanationSpan
+        binding.descriptionText.text =
+            getColoredFirstSentence(requireContext(), picture.explanation)
     }
 }

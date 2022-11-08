@@ -40,17 +40,6 @@ class NotesFragmentAdapter(
         submitList(newList)
     }
 
-    inner class NotesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding = NoteItemBinding.bind(view)
-        fun bind(entity: NoteEntity) {
-            binding.title.text = entity.title
-            binding.text.text = entity.note
-            binding.date.text = entity.date
-            binding.priority.text = PRIORITY_PREF + entity.priority
-            binding.root.setOnClickListener { onItemClicked(entity) }
-        }
-    }
-
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
@@ -79,5 +68,16 @@ class NotesFragmentAdapter(
 
     companion object {
         private const val PRIORITY_PREF = "Proirity: "
+    }
+
+    inner class NotesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val binding = NoteItemBinding.bind(view)
+        fun bind(entity: NoteEntity) {
+            binding.title.text = entity.title
+            binding.text.text = entity.note
+            binding.date.text = entity.date
+            binding.priority.text = PRIORITY_PREF + entity.priority
+            binding.root.setOnClickListener { onItemClicked(entity) }
+        }
     }
 }

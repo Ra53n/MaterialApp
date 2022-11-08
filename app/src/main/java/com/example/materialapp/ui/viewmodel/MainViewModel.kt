@@ -3,6 +3,7 @@ package com.example.materialapp.ui.viewmodel
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -28,12 +29,7 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
     fun requestPictureOfTheDay(isYesterday: Boolean) {
         viewModelScope.launch {
             try {
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
-                val date = Calendar.getInstance()
-                if (isYesterday) {
-                    date.add(Calendar.DAY_OF_YEAR, -1)
-                }
-                currentPictureEntity = repository.pictureOfTheDay(dateFormat.format(date))
+                currentPictureEntity = repository.pictureOfTheDay(getDateForRequest(isYesterday))
                 currentPictureEntity?.let {
                     _image.emit(it.url)
                     _title.emit(it.title)
@@ -43,6 +39,15 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
             }
 
         }
+    }
+
+    private fun getDateForRequest(isYesterday: Boolean): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
+        val date = Calendar.getInstance()
+        if (isYesterday) {
+            date.add(Calendar.DAY_OF_YEAR, -1)
+        }
+        return dateFormat.format(date)
     }
 
     fun onImageClick(manager: FragmentManager) {

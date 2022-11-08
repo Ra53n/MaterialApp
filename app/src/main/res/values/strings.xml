@@ -18,4 +18,6 @@
     <string name="add">ADD</string>
     <string name="save">SAVE</string>
     <string name="fab_info_stroke">Here you can find some information about the picture</string>
+
+    <string name="incorrect_request">Некорректный запрос</string>
 </resources>

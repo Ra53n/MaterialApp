@@ -17,7 +17,7 @@ import com.example.materialapp.ui.viewmodel.MarsViewModelFactory
 
 const val CAMERA_NAME_KEY = "CAMERA_NAME_KEY"
 
-class MarsFragment() : Fragment(R.layout.mars_fragment) {
+class MarsFragment : Fragment(R.layout.mars_fragment) {
     private lateinit var cameraName: CameraName
     private lateinit var binding: MarsFragmentBinding
     private var adapter = MarsAdapter()
