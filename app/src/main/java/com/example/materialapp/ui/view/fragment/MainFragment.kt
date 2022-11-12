@@ -57,6 +57,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         initChips()
         binding.fab.setOnClickListener { viewModel.onImageClick(parentFragmentManager) }
         binding.image.setOnClickListener { zoomImageTransition() }
+        binding.title.setOnClickListener {
+            val text = binding.title.text
+            binding.searchEditText.setText(text)
+        }
     }
 
     private fun zoomImageTransition() {
@@ -128,20 +132,24 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     }
 
     private fun initChips() {
-        binding.chipNormalImage.setOnCheckedChangeListener { _, isChecked ->
+        binding.chipToday.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.requestPictureOfTheDay(
                     false
                 )
             }
         }
-        binding.chipHDImage.setOnCheckedChangeListener { _, isChecked ->
+        binding.chipYesterday.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.requestPictureOfTheDay(
                     true
                 )
             }
         }
-        binding.chipNormalImage.isChecked = true
+        binding.chipToday.isChecked = true
+    }
+
+    companion object {
+        fun newInstance() = MainFragment()
     }
 }
