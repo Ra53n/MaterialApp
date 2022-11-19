@@ -55,14 +55,14 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipNormalImage"
+                android:id="@+id/chipToday"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_today_apod_text" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipHDImage"
+                android:id="@+id/chipYesterday"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

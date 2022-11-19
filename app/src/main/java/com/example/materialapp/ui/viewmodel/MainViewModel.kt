@@ -1,9 +1,6 @@
 package com.example.materialapp.ui.viewmodel
 
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
 import android.util.Log
-import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,12 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.materialapp.domain.data.PictureOfTheDayEntity
 import com.example.materialapp.domain.repos.NasaRepository
 import com.example.materialapp.ui.view.fragment.DescriptionBottomSheetFragment
+import com.example.materialapp.ui.view.utils.DateFormatter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.*
 
-class MainViewModel(private val repository: NasaRepository) : ViewModel() {
+class MainViewModel(
+    private val repository: NasaRepository,
+    private val dateFormatter: DateFormatter
+) : ViewModel() {
 
     private val _image: MutableStateFlow<String?> = MutableStateFlow(null)
     val image: Flow<String?> = _image
@@ -29,7 +29,7 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
     fun requestPictureOfTheDay(isYesterday: Boolean) {
         viewModelScope.launch {
             try {
-                currentPictureEntity = repository.pictureOfTheDay(getDateForRequest(isYesterday))
+                currentPictureEntity = repository.pictureOfTheDay(dateFormatter.getDateForRequest(isYesterday))
                 currentPictureEntity?.let {
                     _image.emit(it.url)
                     _title.emit(it.title)
@@ -37,17 +37,7 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
             } catch (exception: Exception) {
                 Log.e("@@@", exception.message.toString())
             }
-
         }
-    }
-
-    private fun getDateForRequest(isYesterday: Boolean): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
-        val date = Calendar.getInstance()
-        if (isYesterday) {
-            date.add(Calendar.DAY_OF_YEAR, -1)
-        }
-        return dateFormat.format(date)
     }
 
     fun onImageClick(manager: FragmentManager) {
@@ -57,6 +47,10 @@ class MainViewModel(private val repository: NasaRepository) : ViewModel() {
     }
 }
 
-class MainViewModelFactory(private val repository: NasaRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>) = MainViewModel(repository) as T
+class MainViewModelFactory(
+    private val repository: NasaRepository,
+    private val dateFormatter: DateFormatter
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>) =
+        MainViewModel(repository, dateFormatter) as T
 }

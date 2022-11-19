@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.materialapp.R
 import com.example.materialapp.databinding.NotesFragmentBinding
+import com.example.materialapp.domain.interactors.NotesInteractor
 import com.example.materialapp.domain.repos.NoteRepositoryImpl
 import com.example.materialapp.ui.view.adapter.NotesFragmentAdapter
 import com.example.materialapp.ui.view.utils.ItemTouchHelperCallback
@@ -25,7 +26,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
         { note -> viewModel.onItemClicked(note, parentFragmentManager) }
     )
     private val viewModel: NotesViewModel by viewModels {
-        NotesViewModelFactory(NoteRepositoryImpl(requireContext()))
+        NotesViewModelFactory(NotesInteractor(NoteRepositoryImpl(requireContext())))
     }
 
     private var isIncreasing = false
